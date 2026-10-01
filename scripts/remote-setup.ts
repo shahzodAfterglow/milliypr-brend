@@ -8,7 +8,7 @@ import { createHash } from "node:crypto";
 async function main() {
   const base = process.argv.slice(2).find((a) => !a.startsWith("--")) ?? process.env.APP_URL;
   if (!base) throw new Error("Manzil kerak: npm run setup:remote -- https://<host> [--apply]");
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
   if (!token) throw new Error("TELEGRAM_BOT_TOKEN o'rnatilmagan");
   const apply = process.argv.includes("--apply");
 
@@ -16,7 +16,9 @@ async function main() {
   const bearer = createHash("sha256").update(`prb-setup:${token}`).digest("hex");
   const res = await fetch(url, { method: apply ? "POST" : "GET", headers: { Authorization: `Bearer ${bearer}` } });
   const text = await res.text();
-  if (!res.ok) throw new Error(`${res.status} ${url}: ${text.slice(0, 300)}`);
+  if (!res.ok) {
+    throw new Error(`${res.status} ${url}: ${text.slice(0, 300)} · lokal bot id: ${token.split(":")[0]}`);
+  }
   console.log(JSON.stringify(JSON.parse(text), null, 2));
 }
 
