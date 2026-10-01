@@ -15,6 +15,8 @@ Konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md) · Claude Code uchun: [`CLAUDE.
 2. **Supabase**: yangi loyiha, region `eu-central-1` (Frankfurt). SQL Editor'da ketma-ket:
    `supabase/migrations/001_init.sql`, keyin `supabase/seed.sql`.
 3. **Vercel**: yangi loyiha shu repodan, region `fra1`. Env'lar — `.env.example` bo'yicha (Sensitive).
+   Landing ochilishi uchun kamida `SESSION_SECRET`, `TELEGRAM_WEBHOOK_SECRET` (ikkalasi yo'q bo'lsa
+   middleware hamma sahifaga 503 qaytaradi) va `TELEGRAM_BOT_USERNAME` ("Botni ochish" tugmasi, build paytida o'qiladi).
 4. **DNS** (webname.uz): `pr` → CNAME → Vercel ko'rsatgan target. Vercel'da domen qo'shiladi.
 5. **Webhook**: `.env.local`da ishlab chiqarish qiymatlari bilan `npm run setup`.
 6. Yozma rozilik so'rovi, tur ro'yxati va dizaynerlar qoidasi kelishiladi (CONCEPT 5, 8-bo'limlar).
