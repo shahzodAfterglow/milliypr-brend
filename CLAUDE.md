@@ -26,6 +26,7 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run check` | Bot tokeni (getMe, webhook holati) va Supabase ulanishi |
 | `npm run setup` | Idempotent: `setWebhook` (secret, allowed_updates), buyruqlar, tavsiflar. `--no-webhook` bilan faqat buyruqlar |
+| `npm run setup:remote -- <APP_URL> [--apply]` | Xuddi shu sozlash serverda (`/api/telegram/setup`), kalitlar Vercel'da qoladi; `--apply`siz faqat holat |
 | `npm run bot:dev` | Long polling (webhook'ni o'chiradi!) |
 | `npm run probe` | Ilova O Telegram sinovi (faqat sinov boti, sinov kanali/guruhi) |
 
@@ -33,6 +34,7 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 
 - `lib/env.ts` — env o'zgaruvchilari (yo'q bo'lsa xato, fail closed).
 - `lib/telegram/bot.ts` — barcha handlerlar (`createBot`), `instance.ts` — serverless singleton.
+- `lib/telegram/setup.ts` — `configureBot` (webhook, buyruqlar) va `systemStatus`; `setup` skripti va `/api/telegram/setup` umumiy.
 - `lib/audit.ts` — `audit_log`ga yozish (faqat INSERT; bazada trigger UPDATE/DELETE'ni taqiqlaydi).
 - `middleware.ts` — `SESSION_SECRET`/`TELEGRAM_WEBHOOK_SECRET` yo'q bo'lsa 503; ochiq bo'lmagan yo'llar `__Host-prb_session` cookie talab qiladi.
 - `supabase/migrations/NNN_*.sql` — har bosqichga bitta raqamlangan migratsiya, Sancho Dashboard'ga joylaydi. `supabase/seed.sql` idempotent.

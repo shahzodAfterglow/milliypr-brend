@@ -604,6 +604,7 @@ Natija: "Navro'z" va "Наврўз" → `navroz`, lekin ruscha "Навруз" �
 - `allowed_updates`: `message, edited_message, channel_post, edited_channel_post, callback_query, my_chat_member` (join-request havolalari ishlatilsa, `chat_join_request` ham).
 - `callback_data` ≤64 bayt, faqat qisqa ID'lar. Qolgan holat `bot_state`da saqlanadi. Har bosishda `answerCallbackQuery` va huquq qayta tekshiriladi.
 - `npm run setup` (idempotent, lokal): `setWebhook` (secret, allowed_updates), rollar bo'yicha `setMyCommands` (`BotCommandScopeChat`), tavsiflar.
+- Xuddi shu sozlash serverning o'zida: `POST /api/telegram/setup` (`GET` — holat: env nomlari bor-yo'qligi, webhook, jadvallardagi qatorlar soni; qiymatlar qaytarilmaydi). `Authorization: Bearer sha256("prb-setup:" + bot_token)` — token egasi botni baribir boshqaradi, alohida sir kerak emas. Webhook siri va Supabase kalitlari Vercel'dan chiqmaydi. Lokal chaqiruv: `npm run setup:remote -- <APP_URL> [--apply]`.
 
 ## L. API marshrutlari
 
@@ -619,6 +620,7 @@ Natija: "Navro'z" va "Наврўз" → `navroz`, lekin ruscha "Навруз" �
 | `POST /api/versions/[id]/decision` | Tasdiqlash yoki izoh (bot bilan bir xil kod) |
 | `POST /api/admin/invites`, `POST /api/admin/members/[id]/remove` | Taklif va chiqarish |
 | `GET /api/cron/daily` | Kunlik vazifalar (`CRON_SECRET`) |
+| `GET`/`POST /api/telegram/setup` | Bot holati / webhook, buyruqlar va tavsiflarni server env'lari bilan o'rnatish (Bearer bot tokenidan) |
 
 ## M. Bot buyruqlari va callback katalogi
 
