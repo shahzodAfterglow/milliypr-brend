@@ -73,6 +73,13 @@ async function main() {
   if (!token) throw new Error("TELEGRAM_BOT_TOKEN yo'q");
   const bot = new Bot(token, { client: grammyClient });
   const me = await bot.api.getMe();
+  const wh = await bot.api.getWebhookInfo();
+  if (wh.url && !process.argv.includes("--force")) {
+    throw new Error(
+      `@${me.username}'da webhook o'rnatilgan — ehtimol ishlab chiqarish boti. ` +
+        "Sinov xabarlari haqiqiy kanalga tushmasligi uchun to'xtatildi (`--force` bilan chetlab o'tiladi).",
+    );
+  }
 
   const editGroup = arg("edit-group");
   const fromDb = await chatsFromDb();

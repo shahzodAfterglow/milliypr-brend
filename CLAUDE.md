@@ -1,7 +1,7 @@
 # PR Brend — Claude Code uchun qo'llanma
 
 Milliy PR markazi rahbariyati va branding bo'limi uchun ichki tizim: Telegram bot (asosiy) +
-kichik sayt (`pr.promthub.uz`). To'liq konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md).
+kichik sayt (`pr.prompthub.uz`). To'liq konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md).
 Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgarsa, avval hujjatni yangilang.
 
 **Bu repoga hech qachon maxfiy kalit, token yoki parol yozilmaydi** (shu fayl ham). Kalitlar faqat
@@ -33,7 +33,7 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 - `lib/env.ts` — env o'zgaruvchilari (yo'q bo'lsa xato, fail closed).
 - `lib/telegram/bot.ts` — barcha handlerlar (`createBot`), `instance.ts` — serverless singleton.
 - `lib/audit.ts` — `audit_log`ga yozish (faqat INSERT; bazada trigger UPDATE/DELETE'ni taqiqlaydi).
-- `middleware.ts` — `SESSION_SECRET`/`TELEGRAM_WEBHOOK_SECRET` yo'q bo'lsa 503; ochiq bo'lmagan yo'llar `prb_session` cookie talab qiladi.
+- `middleware.ts` — `SESSION_SECRET`/`TELEGRAM_WEBHOOK_SECRET` yo'q bo'lsa 503; ochiq bo'lmagan yo'llar `__Host-prb_session` cookie talab qiladi.
 - `supabase/migrations/NNN_*.sql` — har bosqichga bitta raqamlangan migratsiya, Sancho Dashboard'ga joylaydi. `supabase/seed.sql` idempotent.
 
 ## Qoidalar
@@ -57,6 +57,8 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 - Rasmiy hujjat oqimi, e-imzo, mehmonlar ro'yxati; vazifa menejeri, Kanban, dizaynerlar reytingi.
 - AI teglash, ovozni matnga o'girish (ma'lumotlarni himoya qilish ko'rigisiz); analitika dashboardlari.
 - Multi-tenant `org_id`, feature-flag katalogi, sozlanadigan tasdiqlash zanjirlari, per-asset ACL.
+- PromptHub orqali proxy/rewrite yoki `basePath` bilan `/pr` ostida xizmat qilish; `/setdomain`ni
+  `www.prompthub.uz` yoki apex'ga bog'lash (`prompthub.uz/pr` faqat redirect).
 - `CLAUDE.md`ga yoki repoga maxfiy kalit yozish.
 
 ## Bosqichlar holati

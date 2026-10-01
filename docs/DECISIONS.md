@@ -9,7 +9,7 @@ Holat: ⏳ kutilmoqda · ✅ qabul qilindi · ✏️ o'zgartirib qabul qilindi
 |---|---|---|---|---|---|
 | 1 | Pullik/rasmiymi yoki bepul pilotmi? Kim yozma rozilik beradi? | 1 oylik bepul pilot, faqat maxfiy bo'lmagan materiallar, Vercel Hobby + Supabase Free. Branding boshlig'i yozma rozilik so'raydi | | ⏳ | |
 | 2 | Bot va kanallar kimning akkauntida? Botning doimiy nomi? | Markazning ish akkaunti (2FA). Siz ikkinchi admin. Nomi `@milliypr_brend_bot` kabi, umrbod o'zgarmaydi | | ⏳ | |
-| 3 | Pilot domeni va brend | `pr.promthub.uz`, neytral nom "PR Brend", PromptHub brendingisiz; logotip faqat yozma ruxsat bilan | | ⏳ | |
+| 3 | Pilot domeni va brend | `pr.prompthub.uz` (alohida Vercel loyihasi), neytral nom "PR Brend", PromptHub brendingisiz; logotip faqat yozma ruxsat bilan. `prompthub.uz/pr` — faqat redirect (qisqa havola); PromptHub ostida proxy qilinmaydi | | ⏳ | |
 | 4 | Kim tasdiqlaydi? Rahbar Telegram'ini amalda kim yuritadi? | Yagona tasdiqlovchi — rahbar. Yordamchi ko'radi, tasdiqlay olmaydi | | ⏳ | |
 | 5 | Fayllar hozir qayerda, nechta, "Restrict saving content" yoqilganmi? | Yangi arxiv kanali (bot birinchi postdan oldin admin). Eski fayllardan top-20 va joriy loyihalar import qilinadi | | ⏳ | |
 | 6 | Qoralama va izohlar siyosati | Qoralamalar himoyalangan, "🔓 Himoyasiz nusxa" jurnalga yoziladi; yakuniylar erkin. Izohlar butun branding jamoasiga ko'rinadi | | ⏳ | |

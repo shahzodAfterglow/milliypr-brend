@@ -14,11 +14,20 @@ Konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md) · Claude Code uchun: [`CLAUDE.
    - Bot admin qilinganda sizga tugmalar keladi: `🗄 Arxiv kanali: Branding` / `👥 Jamoa guruhi: Branding`.
 2. **Supabase**: yangi loyiha, region `eu-central-1` (Frankfurt). SQL Editor'da ketma-ket:
    `supabase/migrations/001_init.sql`, keyin `supabase/seed.sql`.
-3. **Vercel**: yangi loyiha shu repodan, region `fra1`. Env'lar — `.env.example` bo'yicha (Sensitive).
-   Landing ochilishi uchun kamida `SESSION_SECRET`, `TELEGRAM_WEBHOOK_SECRET` (ikkalasi yo'q bo'lsa
-   middleware hamma sahifaga 503 qaytaradi) va `TELEGRAM_BOT_USERNAME` ("Botni ochish" tugmasi, build paytida o'qiladi).
-4. **DNS** (webname.uz): `pr` → CNAME → Vercel ko'rsatgan target. Vercel'da domen qo'shiladi.
-5. **Webhook**: `.env.local`da ishlab chiqarish qiymatlari bilan `npm run setup`.
+3. **Vercel**: Add New → Project → shu repo (region `fra1` — `vercel.json`da). Production Branch —
+   kodning oxirgi holati turgan branch (Settings → Environments → Production → Branch Tracking).
+   Env'lar — `.env.example` bo'yicha. `SESSION_SECRET` va `TELEGRAM_WEBHOOK_SECRET`ni
+   (`openssl rand -hex 32`) **avval markazning parol menejeriga saqlang**, keyin Vercel'ga Sensitive
+   qilib kiriting — Vercel ularni qayta ko'rsatmaydi, 5-qadamda aynan shu qiymat kerak. Ikkalasi yo'q
+   bo'lsa middleware hamma sahifaga 503 qaytaradi. `APP_URL=https://pr.prompthub.uz`.
+   `TELEGRAM_BOT_USERNAME` — asosiy bot nomi (build paytida o'qiladi; bo'sh bo'lsa "Botni ochish" yashiriladi).
+   Env qo'shilgandan keyin Redeploy.
+4. **Domen**: loyiha → Settings → Domains → `pr.prompthub.uz`. `prompthub.uz` Vercel DNS'da, yozuv va
+   sertifikat avtomatik (boshqa akkaunt bo'lsa — `_vercel` TXT). `prompthub.uz/pr` qisqa havolasi
+   PromptHub loyihasidagi redirect bilan ishlaydi (CONCEPT, C bo'lim).
+5. **Webhook**: ishlab chiqarish qiymatlarini `.env.local`ga emas, alohida `.env.prod.local`ga yozing
+   (`.env.local` sinov boti uchun qoladi), so'ng
+   `set -a; . ./.env.prod.local; set +a; npm run setup && npm run check` — `check`da xato bo'lmasligi kerak.
 6. Yozma rozilik so'rovi, tur ro'yxati va dizaynerlar qoidasi kelishiladi (CONCEPT 5, 8-bo'limlar).
    Javoblar [`docs/DECISIONS.md`](docs/DECISIONS.md)ga yoziladi.
 7. **Telegram sinovi** (CONCEPT, Ilova O): sinov kanali va guruhiga sinov botini admin qiling, DM'dagi
@@ -30,14 +39,14 @@ Konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md) · Claude Code uchun: [`CLAUDE.
 cp .env.example .env.local   # qiymatlarni to'ldiring
 npm install
 npm run check                 # bot va Supabase ulanishi
-npm run bot:dev               # sinov boti, long polling
+npm run bot:dev               # sinov boti, long polling (webhook o'rnatilgan botda ishlamaydi)
 npm run probe                 # Ilova O: copyMessage, albom, reaksiya, tahrir (sinov kanalida)
 npm run dev                   # sayt: http://localhost:3000
 ```
 
 ### Qabul mezonlari
 
-- [ ] `pr.promthub.uz` HTTPS bilan "Tez orada" sahifasini ko'rsatadi
+- [ ] `pr.prompthub.uz` HTTPS bilan "Tez orada" sahifasini ko'rsatadi
 - [ ] Bot `/start`ga javob beradi (admin — salomlashish, begona — muloyim rad) — sinov botida lokal baza bilan ✅, Supabase bilan ⏳
 - [ ] Sinov arxiv kanaliga qo'yilgan fayl `files` jadvalida qator bo'lib paydo bo'ladi
 - [ ] 6 ta qaror yozib qo'yilgan ([`docs/DECISIONS.md`](docs/DECISIONS.md))
