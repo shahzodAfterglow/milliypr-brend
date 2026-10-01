@@ -13,8 +13,12 @@ export const dynamic = "force-dynamic";
 
 const noStore = { "Cache-Control": "no-store" };
 
+function serverToken(): string | null {
+  return process.env.TELEGRAM_BOT_TOKEN?.trim() || null;
+}
+
 function authorized(req: Request): boolean | null {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const token = serverToken();
   if (!token) return null;
   const header = req.headers.get("authorization") ?? "";
   return safeEqual(header, `Bearer ${setupToken(token)}`);
@@ -22,7 +26,11 @@ function authorized(req: Request): boolean | null {
 
 function denied(state: boolean | null): Response | null {
   if (state === null) return new Response("TELEGRAM_BOT_TOKEN o'rnatilmagan", { status: 503, headers: noStore });
-  if (!state) return new Response("unauthorized", { status: 401, headers: noStore });
+  if (!state) {
+    // Bot ID (tokenning ":" gacha qismi) ochiq ma'lumot: qaysi bot tokeni o'rnatilganini solishtirish uchun.
+    const botId = serverToken()?.split(":")[0] ?? "?";
+    return new Response(`unauthorized (server bot id: ${botId})`, { status: 401, headers: noStore });
+  }
   return null;
 }
 

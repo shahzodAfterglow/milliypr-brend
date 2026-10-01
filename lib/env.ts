@@ -1,8 +1,9 @@
 import "server-only";
 
 // Barcha env o'zgaruvchilari server-only. Yo'q bo'lsa aniq xato beriladi (fail closed).
+// Chetdagi bo'shliq va yangi qator olib tashlanadi: panelga nusxa ko'chirishda tez-tez qoladi.
 function required(name: string): string {
-  const value = process.env[name];
+  const value = process.env[name]?.trim();
   if (!value) throw new Error(`Env o'zgaruvchisi o'rnatilmagan: ${name}`);
   return value;
 }
