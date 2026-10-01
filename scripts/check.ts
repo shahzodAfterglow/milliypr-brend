@@ -19,6 +19,7 @@ async function main() {
     console.log("⏭  Supabase: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY o'rnatilmagan");
     return;
   }
+  console.log(`   Supabase: ${new URL(url).host}`);
   const db = createClient(url, key, { auth: { persistSession: false } });
   const { data, error } = await db.from("departments").select("slug, archive_chat_id, team_chat_id");
   if (error) throw new Error(`Supabase: ${error.message}`);

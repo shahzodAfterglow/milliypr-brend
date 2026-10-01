@@ -76,7 +76,7 @@ flowchart LR
 
 | Sizning g'oyangiz | Taklif | Nega |
 |---|---|---|
-| "prompthub domeni bilan ulangan bo'ladi" | `pr.prompthub.uz` subdomeni, lekin PromptHub'dan **alohida** loyiha (alohida kod, baza, bot) | PromptHub'ning admin himoyasi zaif. Davlat tashkilotining ma'lumotlari u bilan aralashmasligi kerak. Keyin markazning o'z domeniga ko'chirish bitta DNS o'zgarishi bilan bo'ladi. `prompthub.uz/pr` — faqat `pr.prompthub.uz`ga yo'naltiruvchi qisqa havola (redirect), ilova PromptHub ostida xizmat qilmaydi. |
+| "prompthub domeni bilan ulangan bo'ladi" | `pr.prompthub.uz` subdomeni, lekin PromptHub'dan **alohida** loyiha (alohida kod, baza, bot) | PromptHub'ning admin himoyasi zaif. Davlat tashkilotining ma'lumotlari u bilan aralashmasligi kerak. Keyin markazning o'z domeniga ko'chirish bir necha sozlama bilan bo'ladi (Q.8), ma'lumotlar o'zgarmaydi. `prompthub.uz/pr` — faqat `pr.prompthub.uz`ga yo'naltiruvchi qisqa havola (redirect), ilova PromptHub ostida xizmat qilmaydi. |
 | "fayllar hammasi Telegram kanalda turadi, unga link beriladi" | Fayllar kanalda turadi, lekin **bot faylning o'zini** rahbarning chatiga yuboradi | Yopiq kanal postiga havola (`t.me/c/...`) faqat kanal a'zolariga ochiladi, uni qidirish ham qiyin. Rahbar xohlasa, kanalga faqat o'qish uchun qo'shilishi mumkin. |
 | "yoki Figma fayl link bersak bo'ladi" | Figma — dizaynerlar uchun ikkinchi darajali "manbani ochish" tugmasi. Rahbar bizning PNG preview'larimizni ko'radi. | Rahbar telefonida Figma'ga kirmagan bo'ladi, shuning uchun kirish oynasi chiqadi. "Havolasi borlar ko'ra oladi" rejimi esa chiqmagan taklifnomalarni tashqariga oshkor qiladi. |
 | "mini landing page va kirish paneli" | Landing + parolsiz kirish: telefonda bot tugmasi, kompyuterda QR-kod | Rahbar parol eslab qolishi shart emas. Kirish Telegram hisobiga bog'lanadi. |
@@ -95,7 +95,7 @@ Har birida tavsiya etilgan variant bor. "Ha" desangiz, shu variant qabul qilinad
 2. **Bot va kanallar kimning Telegram akkauntiga tegishli bo'ladi? Botning doimiy nomi qanday?**
    *Tavsiya:* markazning ish akkaunti (ikki bosqichli tekshiruv yoqilgan) bot, "Brending arxivi", jamoa guruhi va "Zaxira" kanalini yaratadi. Siz ikkinchi admin va dasturchi sifatida bo'lasiz. Bot nomi `@milliypr_brend_bot` kabi bo'ladi va **umrbod o'zgarmaydi**, chunki saqlangan fayl havolalari shu botga bog'langan.
 3. **Domen va brend: pilot `pr.prompthub.uz`dami yoki markazning o'z subdomenidami? Landing va botda markaz nomi va logotipi ko'rsatilsinmi?**
-   *Tavsiya:* pilot `pr.prompthub.uz`da, neytral nom ("PR Brend") bilan, PromptHub brendingisiz. Markaz logotipi faqat yozma ruxsat bilan qo'yiladi. Tizim rasmiylashganda markaz domeniga (masalan, `brend.nationalprcenter.uz`) ko'chiriladi. Bunda faqat DNS yozuvi o'zgaradi, ma'lumotlar o'zgarmaydi.
+   *Tavsiya:* pilot `pr.prompthub.uz`da, neytral nom ("PR Brend") bilan, PromptHub brendingisiz. Markaz logotipi faqat yozma ruxsat bilan qo'yiladi. Tizim rasmiylashganda markaz domeniga (masalan, `brend.nationalprcenter.uz`) ko'chiriladi. Bunda domen va bir necha sozlama o'zgaradi (Ilova Q.8), ma'lumotlar o'zgarmaydi.
 4. **Kim tasdiqlaydi va rahbarning Telegram'idan amalda kim foydalanadi?**
    *Tavsiya:* branding uchun yagona tasdiqlovchi — rahbar. Keyinchalik o'rinbosarga ham tasdiqlash huquqi berilishi mumkin. Agar rahbarning telefonini yordamchi yuritsa, yordamchi hamma narsani ko'radi, lekin tasdiqlay olmaydi.
 5. **Branding fayllari hozir Telegram kanal yoki guruhda turibdimi? Taxminan nechta? "Restrict saving content" (saqlashni cheklash) yoqilganmi?**
@@ -669,14 +669,14 @@ Plain matn → qidiruv, bundan mustasno: ForceReply javobi, ko'rib chiqish karta
 
 ## Q. RUNBOOK.md (o'zbekcha) mundarijasi
 
-1. Bot tokeni sizib chiqsa: BotFather → Revoke (bot o'zgarmaydi) → Vercel env → redeploy → `npm run setup` → `/holat` → sinov fayli. Maqsad: 15 daqiqa.
+1. Bot tokeni sizib chiqsa: BotFather → Revoke (bot o'zgarmaydi) → Vercel env → redeploy → `ENV_FILE=.env.prod.local npm run setup` → `/holat` → sinov fayli. Maqsad: 15 daqiqa.
 2. Webhook'ni qayta o'rnatish.
 3. A'zo qo'shish va chiqarish, oylik ko'rik.
 4. Zaxiradan tiklash (scratch loyihaga mashq).
 5. Supabase "uxlab qolsa" — Dashboard'dan tiklash.
 6. Bot kanal adminligidan olinsa — huquqlarni qaytarish, o'tkazib yuborilgan postlarni `/import` bilan qo'shish.
 7. Dizayner kanalda postni o'chirib yuborsa.
-8. Domenni ko'chirish: domen/DNS → `/setdomain` → `APP_URL` → redeploy → `npm run setup` (webhook).
+8. Domenni ko'chirish: domen/DNS → `/setdomain` → `APP_URL` → redeploy → `ENV_FILE=.env.prod.local npm run setup` (webhook). `__Host-` cookie hostga bog'langani uchun hamma qayta kiradi.
 9. Yangi bo'lim qo'shish.
 
 ## R. Yangi repo `CLAUDE.md` uchun "qurmang" ro'yxati
@@ -691,6 +691,7 @@ Plain matn → qidiruv, bundan mustasno: ForceReply javobi, ko'rib chiqish karta
 - Rasmiy hujjat oqimi, e-imzo, mehmonlar ro'yxati; vazifa menejeri, Kanban, dizaynerlar reytingi.
 - AI teglash, ovozni matnga o'girish (ma'lumotlarni himoya qilish ko'rigisiz); analitika dashboardlari.
 - Multi-tenant `org_id`, feature-flag katalogi, sozlanadigan tasdiqlash zanjirlari, per-asset ACL.
+- PromptHub orqali proxy/rewrite yoki `basePath` bilan `/pr` ostida xizmat qilish; `/setdomain`ni `www.prompthub.uz` yoki apex'ga bog'lash (`prompthub.uz/pr` faqat redirect).
 - `CLAUDE.md`ga yoki repoga maxfiy kalit yozish.
 
 ## S. Amalga oshirishda qayta tekshirilishi kerak bo'lgan taxminlar

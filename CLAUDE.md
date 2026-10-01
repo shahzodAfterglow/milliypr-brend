@@ -5,7 +5,8 @@ kichik sayt (`pr.prompthub.uz`). To'liq konsepsiya: [`docs/CONCEPT.md`](docs/CON
 Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgarsa, avval hujjatni yangilang.
 
 **Bu repoga hech qachon maxfiy kalit, token yoki parol yozilmaydi** (shu fayl ham). Kalitlar faqat
-`.env.local` (gitignore'da) va Vercel env'da.
+`.env*.local` (gitignore'da: `.env.local` — sinov boti, `.env.prod.local` — ishlab chiqarish setup'i,
+`ENV_FILE` bilan) va Vercel env'da.
 
 ## Stek
 
