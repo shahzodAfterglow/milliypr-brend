@@ -26,6 +26,7 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 | `npm run check` | Bot tokeni (getMe, webhook holati) va Supabase ulanishi |
 | `npm run setup` | Idempotent: `setWebhook` (secret, allowed_updates), buyruqlar, tavsiflar. `--no-webhook` bilan faqat buyruqlar |
 | `npm run bot:dev` | Long polling (webhook'ni o'chiradi!) |
+| `npm run probe` | Ilova O Telegram sinovi (faqat sinov boti, sinov kanali/guruhi) |
 
 ## Tuzilma
 
@@ -60,7 +61,9 @@ Texnik qarorlar — o'sha hujjatning "Texnik ilova" qismi (A–T). Qaror o'zgars
 
 ## Bosqichlar holati
 
-- [x] 0 — skelet, 001_init.sql, seed, "Tez orada" landing, fail-closed middleware, setup/bot:dev/check
+- [ ] 0 — kod tayyor (skelet, 001_init.sql, seed, "Tez orada" landing, fail-closed middleware,
+  setup/bot:dev/check/probe). Qolgani qo'lda: Supabase, Vercel + DNS, Ilova O sinovi, qarorlar
+  ([`docs/DECISIONS.md`](docs/DECISIONS.md))
 - [ ] 1 — bot yadrosi (F, G, I, K, M, N)
 - [ ] 2 — tasdiqlash halqasi
 - [ ] 3 — sayt

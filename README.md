@@ -18,6 +18,9 @@ Konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md) · Claude Code uchun: [`CLAUDE.
 4. **DNS** (webname.uz): `pr` → CNAME → Vercel ko'rsatgan target. Vercel'da domen qo'shiladi.
 5. **Webhook**: `.env.local`da ishlab chiqarish qiymatlari bilan `npm run setup`.
 6. Yozma rozilik so'rovi, tur ro'yxati va dizaynerlar qoidasi kelishiladi (CONCEPT 5, 8-bo'limlar).
+   Javoblar [`docs/DECISIONS.md`](docs/DECISIONS.md)ga yoziladi.
+7. **Telegram sinovi** (CONCEPT, Ilova O): sinov kanali va guruhiga sinov botini admin qiling, DM'dagi
+   tugmalar bilan biriktiring, so'ng `npm run probe`. Natija jadvali `docs/DECISIONS.md`ga ko'chiriladi.
 
 ### Lokal ishlab chiqish
 
@@ -26,12 +29,13 @@ cp .env.example .env.local   # qiymatlarni to'ldiring
 npm install
 npm run check                 # bot va Supabase ulanishi
 npm run bot:dev               # sinov boti, long polling
+npm run probe                 # Ilova O: copyMessage, albom, reaksiya, tahrir (sinov kanalida)
 npm run dev                   # sayt: http://localhost:3000
 ```
 
 ### Qabul mezonlari
 
 - [ ] `pr.promthub.uz` HTTPS bilan "Tez orada" sahifasini ko'rsatadi
-- [ ] Bot `/start`ga javob beradi (admin — salomlashish, begona — muloyim rad)
+- [ ] Bot `/start`ga javob beradi (admin — salomlashish, begona — muloyim rad) — sinov botida lokal baza bilan ✅, Supabase bilan ⏳
 - [ ] Sinov arxiv kanaliga qo'yilgan fayl `files` jadvalida qator bo'lib paydo bo'ladi
-- [ ] 6 ta qaror yozib qo'yilgan
+- [ ] 6 ta qaror yozib qo'yilgan ([`docs/DECISIONS.md`](docs/DECISIONS.md))
