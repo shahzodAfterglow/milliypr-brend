@@ -29,7 +29,11 @@ Konsepsiya: [`docs/CONCEPT.md`](docs/CONCEPT.md) · Claude Code uchun: [`CLAUDE.
 4. **Domen**: loyiha → Settings → Domains → `pr.prompthub.uz`. `prompthub.uz` Vercel DNS'da, yozuv va
    sertifikat avtomatik (boshqa akkaunt bo'lsa — `_vercel` TXT). `prompthub.uz/pr` qisqa havolasi
    PromptHub loyihasidagi redirect bilan ishlaydi (CONCEPT, C bo'lim).
-5. **Webhook**: ishlab chiqarish qiymatlarini `.env.local`ga emas, alohida `.env.prod.local`ga yozing
+5. **Webhook** (tavsiya): Vercel env'lari to'liq bo'lgach (`TELEGRAM_BOT_TOKEN`, `SUPABASE_*`, `ADMIN_TG_IDS`,
+   `APP_URL` va boshqalar) va deploy'dan keyin `npm run setup:remote -- <APP_URL>` — holat (qaysi env yo'q,
+   jadvallar bormi), so'ng `npm run setup:remote -- <APP_URL> --apply` — webhook serverning o'z env'lari bilan
+   o'rnatiladi. Lokal faqat shu botning `TELEGRAM_BOT_TOKEN`i kerak.
+   Muqobil (lokal): ishlab chiqarish qiymatlarini `.env.local`ga emas, alohida `.env.prod.local`ga yozing
    (`.env.local` sinov boti uchun qoladi): `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (Vercel'dagi
    bilan bir xil), `APP_URL`, `ADMIN_TG_IDS`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. So'ng
    `ENV_FILE=.env.prod.local npm run setup && ENV_FILE=.env.prod.local npm run check` — faqat shu fayl

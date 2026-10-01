@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "check": "tsx scripts/check.ts",
-    "setup": "tsx scripts/setup.ts",
+    "setup": "tsx --conditions=react-server --tsconfig tsconfig.json scripts/setup.ts",
+    "setup:remote": "tsx scripts/remote-setup.ts",
     "bot:dev": "tsx --conditions=react-server --tsconfig tsconfig.json scripts/bot-dev.ts",
     "probe": "tsx scripts/tg-probe.ts"
   },
