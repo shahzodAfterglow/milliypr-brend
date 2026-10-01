@@ -27,9 +27,11 @@ function authorized(req: Request): boolean | null {
 function denied(state: boolean | null): Response | null {
   if (state === null) return new Response("TELEGRAM_BOT_TOKEN o'rnatilmagan", { status: 503, headers: noStore });
   if (!state) {
-    // Bot ID (tokenning ":" gacha qismi) ochiq ma'lumot: qaysi bot tokeni o'rnatilganini solishtirish uchun.
-    const botId = serverToken()?.split(":")[0] ?? "?";
-    return new Response(`unauthorized (server bot id: ${botId})`, { status: 401, headers: noStore });
+    // Bot ID (tokenning ":" gacha raqamli qismi) ochiq ma'lumot: qaysi bot tokeni o'rnatilganini
+    // solishtirish uchun. Format noto'g'ri bo'lsa qiymatning o'zi hech qachon qaytarilmaydi.
+    const m = /^(\d{5,15}):[A-Za-z0-9_-]{30,}$/.exec(serverToken() ?? "");
+    const hint = m ? `server bot id: ${m[1]}` : "serverdagi TELEGRAM_BOT_TOKEN formati noto'g'ri";
+    return new Response(`unauthorized (${hint})`, { status: 401, headers: noStore });
   }
   return null;
 }
