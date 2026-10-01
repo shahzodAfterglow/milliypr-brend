@@ -46,7 +46,7 @@ Sizning tavsifingizga va shunga o'xshash jamoalar tajribasiga ko'ra, dizayn fayl
 |---|---|---|
 | **Yopiq kanal "Brending arxivi"** | Asl fayllar ombori (bitta fayl 2 GB gacha). Odamlar u yerga qo'lda yozmaydi, faylni bot joylaydi. | Bot; xohlasa rahbar faqat o'qish uchun |
 | **Telegram bot** | Asosiy vosita: yuklash, qidirish, fayl yetkazish, tasdiqlash, izoh, ertalabki xulosa | Rahbar, dizaynerlar, bo'lim boshlig'i |
-| **Sayt `pr.promthub.uz`** | Mini landing, parolsiz kirish, kutubxona, katta preview, versiyalar tarixi, minimal boshqaruv | Rahbar (kattaroq ko'rish uchun), dizaynerlar (kompyuterda) |
+| **Sayt `pr.prompthub.uz`** | Mini landing, parolsiz kirish, kutubxona, katta preview, versiyalar tarixi, minimal boshqaruv | Rahbar (kattaroq ko'rish uchun), dizaynerlar (kompyuterda) |
 | Jamoa guruhi "Brending jamoasi" | Har bir versiya uchun bitta xabarnoma, rahbar izohlari shu xabar ostida | Branding bo'limi |
 | Zaxira kanali | Har kuni ma'lumotlar nusxasi va tizim ogohlantirishlari | Adminlar |
 | Baza (Supabase, Frankfurt) | Fayllar haqidagi ma'lumotlar (nomi, versiyasi, holati, izohlar) va kichik preview rasmlar. Asl fayllarning o'zi emas. | Faqat bot va sayt serveri |
@@ -59,7 +59,7 @@ flowchart LR
     B -->|"bitta xabarnoma"| G["Jamoa guruhi"]
     R["Rahbar"] -->|"qidiruv, tasdiq, izoh"| B
     B -->|"fayl nusxasi"| R
-    R -->|"Saytda ochish"| W["Sayt: pr.promthub.uz"]
+    R -->|"Saytda ochish"| W["Sayt: pr.prompthub.uz"]
     W -->|"preview va tarix"| DB
     W -->|"Telegramga yuborish"| B
 ```
@@ -76,7 +76,7 @@ flowchart LR
 
 | Sizning g'oyangiz | Taklif | Nega |
 |---|---|---|
-| "prompthub domeni bilan ulangan bo'ladi" | `pr.promthub.uz` subdomeni, lekin PromptHub'dan **alohida** loyiha (alohida kod, baza, bot) | PromptHub'ning admin himoyasi zaif. Davlat tashkilotining ma'lumotlari u bilan aralashmasligi kerak. Keyin markazning o'z domeniga ko'chirish bitta DNS o'zgarishi bilan bo'ladi. |
+| "prompthub domeni bilan ulangan bo'ladi" | `pr.prompthub.uz` subdomeni, lekin PromptHub'dan **alohida** loyiha (alohida kod, baza, bot) | PromptHub'ning admin himoyasi zaif. Davlat tashkilotining ma'lumotlari u bilan aralashmasligi kerak. Keyin markazning o'z domeniga ko'chirish bir necha sozlama bilan bo'ladi (Q.8), ma'lumotlar o'zgarmaydi. `prompthub.uz/pr` — faqat `pr.prompthub.uz`ga yo'naltiruvchi qisqa havola (redirect), ilova PromptHub ostida xizmat qilmaydi. |
 | "fayllar hammasi Telegram kanalda turadi, unga link beriladi" | Fayllar kanalda turadi, lekin **bot faylning o'zini** rahbarning chatiga yuboradi | Yopiq kanal postiga havola (`t.me/c/...`) faqat kanal a'zolariga ochiladi, uni qidirish ham qiyin. Rahbar xohlasa, kanalga faqat o'qish uchun qo'shilishi mumkin. |
 | "yoki Figma fayl link bersak bo'ladi" | Figma — dizaynerlar uchun ikkinchi darajali "manbani ochish" tugmasi. Rahbar bizning PNG preview'larimizni ko'radi. | Rahbar telefonida Figma'ga kirmagan bo'ladi, shuning uchun kirish oynasi chiqadi. "Havolasi borlar ko'ra oladi" rejimi esa chiqmagan taklifnomalarni tashqariga oshkor qiladi. |
 | "mini landing page va kirish paneli" | Landing + parolsiz kirish: telefonda bot tugmasi, kompyuterda QR-kod | Rahbar parol eslab qolishi shart emas. Kirish Telegram hisobiga bog'lanadi. |
@@ -94,8 +94,8 @@ Har birida tavsiya etilgan variant bor. "Ha" desangiz, shu variant qabul qilinad
    *Tavsiya:* 1 oylik bepul pilot, faqat maxfiy bo'lmagan branding materiallari bilan, Vercel Hobby va Supabase Free'da. Branding boshlig'i 0-bosqichda yozma rozilik so'raydi. Pul yoki rasmiy foydalanish boshlangan kuni Vercel Pro'ga ($20/oy) o'tiladi, ishlab chiqarishda Supabase Pro ham ($25/oy) qo'shiladi. Shartnoma bo'lsa, kod va akkauntlar kimga tegishli ekanini oldindan kelishib oling.
 2. **Bot va kanallar kimning Telegram akkauntiga tegishli bo'ladi? Botning doimiy nomi qanday?**
    *Tavsiya:* markazning ish akkaunti (ikki bosqichli tekshiruv yoqilgan) bot, "Brending arxivi", jamoa guruhi va "Zaxira" kanalini yaratadi. Siz ikkinchi admin va dasturchi sifatida bo'lasiz. Bot nomi `@milliypr_brend_bot` kabi bo'ladi va **umrbod o'zgarmaydi**, chunki saqlangan fayl havolalari shu botga bog'langan.
-3. **Domen va brend: pilot `pr.promthub.uz`dami yoki markazning o'z subdomenidami? Landing va botda markaz nomi va logotipi ko'rsatilsinmi?**
-   *Tavsiya:* pilot `pr.promthub.uz`da, neytral nom ("PR Brend") bilan, PromptHub brendingisiz. Markaz logotipi faqat yozma ruxsat bilan qo'yiladi. Tizim rasmiylashganda markaz domeniga (masalan, `brend.nationalprcenter.uz`) ko'chiriladi. Bunda faqat DNS yozuvi o'zgaradi, ma'lumotlar o'zgarmaydi.
+3. **Domen va brend: pilot `pr.prompthub.uz`dami yoki markazning o'z subdomenidami? Landing va botda markaz nomi va logotipi ko'rsatilsinmi?**
+   *Tavsiya:* pilot `pr.prompthub.uz`da, neytral nom ("PR Brend") bilan, PromptHub brendingisiz. Markaz logotipi faqat yozma ruxsat bilan qo'yiladi. Tizim rasmiylashganda markaz domeniga (masalan, `brend.nationalprcenter.uz`) ko'chiriladi. Bunda domen va bir necha sozlama o'zgaradi (Ilova Q.8), ma'lumotlar o'zgarmaydi.
 4. **Kim tasdiqlaydi va rahbarning Telegram'idan amalda kim foydalanadi?**
    *Tavsiya:* branding uchun yagona tasdiqlovchi — rahbar. Keyinchalik o'rinbosarga ham tasdiqlash huquqi berilishi mumkin. Agar rahbarning telefonini yordamchi yuritsa, yordamchi hamma narsani ko'radi, lekin tasdiqlay olmaydi.
 5. **Branding fayllari hozir Telegram kanal yoki guruhda turibdimi? Taxminan nechta? "Restrict saving content" (saqlashni cheklash) yoqilganmi?**
@@ -175,7 +175,7 @@ Muhim aniqlik: Telegram bot xabar qachon *o'qilganini* bila olmaydi. "Rahbar ko'
 ### 6.4. Saytda ishlash
 
 - **Telefonda:** rahbar botdagi "🌐 Saytda ochish" tugmasini bosadi va sayt parolsiz, kirilgan holda ochiladi. Bu Telegram imzolab beradigan kirish tugmasi, texnik nomi login_url.
-- **Kompyuterda:** `pr.promthub.uz` → "Telegram orqali kirish" → ekranda QR-kod. Telefon kamerasi bilan skanerlanadi, bot so'raydi: "Kompyuterda kirishni tasdiqlaysizmi? (Chrome · Windows · 14:05)" → [✅ Ha, men] → kompyuterdagi sahifa o'zi ochiladi.
+- **Kompyuterda:** `pr.prompthub.uz` → "Telegram orqali kirish" → ekranda QR-kod. Telefon kamerasi bilan skanerlanadi, bot so'raydi: "Kompyuterda kirishni tasdiqlaysizmi? (Chrome · Windows · 14:05)" → [✅ Ha, men] → kompyuterdagi sahifa o'zi ochiladi.
 - **Kutubxona (`/ishlar`):** qidiruv maydoni va filtrlar (tur, loyiha, holat). "⏳ Kutilmoqda" filtri rahbar hali javob bermagan ishlarni ko'rsatadi.
 - **Ish sahifasi (`/ish/K27`):** katta preview, "Yakuniy v4 · Eng yangi v5 ko'rib chiqishda" belgilari, v1…v5 tarixi, har bir versiyadagi izohlar va qarorlar. Tugmalar: "Telegramga yuborish" (bot asl faylni chatingizga tashlaydi), "Tasdiqlash / O'zgartirish kerak" (rahbarga), "Figma'da ochish" (branding xodimlariga).
 
@@ -406,7 +406,7 @@ Muddatlar Siz Claude Code bilan kuniga bir necha soat ishlaganda hisoblangan. Bo
 
 | Bosqich | Haftalar | Nima qilinadi | Tayyor bo'ladi, qachonki… |
 |---|---|---|---|
-| **0. Tayyorgarlik va qarorlar** | 1-hafta (3–5 kun + DNS kutish) | 6 ta qarorga javob. Markaz akkauntidan bot (asosiy va sinov), arxiv kanali, jamoa guruhi, "Zaxira" kanali ochiladi, bot birinchi postdan oldin admin bo'ladi. Yangi repo, Vercel, Supabase (Frankfurt), webname.uz'da `pr` CNAME yozuvi. Yozma rozilik so'rovi yuboriladi. Tur ro'yxati va dizaynerlar qoidasi kelishiladi. 30 daqiqalik Telegram sinovi (Ilova O). Rahbar va 2–3 dizayner bilan suhbat: eng ko'p so'raladigan 20 ta fayl ro'yxati. | `pr.promthub.uz` HTTPS bilan "Tez orada" sahifasini ko'rsatadi, bot `/start`ga javob beradi, sinov kanaliga qo'yilgan post bazada paydo bo'ladi, qarorlar yozib qo'yilgan. |
+| **0. Tayyorgarlik va qarorlar** | 1-hafta (3–5 kun + DNS kutish) | 6 ta qarorga javob. Markaz akkauntidan bot (asosiy va sinov), arxiv kanali, jamoa guruhi, "Zaxira" kanali ochiladi, bot birinchi postdan oldin admin bo'ladi. Yangi repo, Vercel, Supabase (Frankfurt), Vercel'da `pr.prompthub.uz` domeni. Yozma rozilik so'rovi yuboriladi. Tur ro'yxati va dizaynerlar qoidasi kelishiladi. 30 daqiqalik Telegram sinovi (Ilova O). Rahbar va 2–3 dizayner bilan suhbat: eng ko'p so'raladigan 20 ta fayl ro'yxati. | `pr.prompthub.uz` HTTPS bilan "Tez orada" sahifasini ko'rsatadi, bot `/start`ga javob beradi, sinov kanaliga qo'yilgan post bazada paydo bo'ladi, qarorlar yozib qo'yilgan. |
 | **1. Bot yadrosi** | 2–3-haftalar | Webhook, a'zolar, taklif va chiqarish, yuklash ustasi, kanalga joylash, versiyalar, qidiruv (3 yozuvda), himoya bilan yetkazish, `/import`, jurnal, kunlik cron (tekshiruv, zaxira). | Rahbar top-20 dan tasodifiy 10 ta faylning har birini lotin va kirill so'rov bilan ≤15 soniyada oladi. Chiqarilgan odam keyingi xabarida rad javobini oladi. Kechagi zaxira "Zaxira" kanalida turibdi. |
 | **2. Tasdiqlash halqasi** | 4-hafta (+ yarim hafta) | Ko'rib chiqish kartalari, tasdiq, izohlar (matn, ovoz, rasm), "qaror?" savoli, "Bajarildimi?", jamoa guruhidagi tahrirlanadigan xabarlar, ertalabki xulosa, tungi ovozsiz rejim. Keyin bot bilan pilot boshlanadi. | Bitta haqiqiy taklifnoma v1 → izoh → v2 → tasdiq yo'lini Sizning yordamingizsiz bot ichida o'tadi. Guruhdagi xabar "👀 Rahbar ko'rdi" va "✅ Tasdiqlandi" holatlarini ko'rsatadi. |
 | **3. Sayt** | 5–6-haftalar (pilot bilan parallel) | Landing, `/kirish` (QR), login_url kirish, `/ishlar`, `/ish/[kod]`, preview'lar, minimal `/boshqaruv`, zaxiradan tiklash mashqi. | Rahbar botdan "🌐 Saytda ochish"ni bosib kirilgan holda ish sahifasiga tushadi. Kompyuterda QR orqali kirish 20 soniyadan kam vaqt oladi. Ro'yxatda yo'q hisob "Ruxsat yo'q" xabarini oladi. |
@@ -420,7 +420,7 @@ Muddatlar Siz Claude Code bilan kuniga bir necha soat ishlaganda hisoblangan. Bo
 
 | Holat | Vercel | Supabase | Telegram, Figma, domen | Jami |
 |---|---|---|---|---|
-| **Pilot** (bepul, maxfiy bo'lmagan materiallar, ~1 oy) | Hobby, $0 | Free, $0 (kunlik so'rov bilan uyg'oq tutiladi) | $0 (promthub.uz allaqachon bor) | **$0/oy** |
+| **Pilot** (bepul, maxfiy bo'lmagan materiallar, ~1 oy) | Hobby, $0 | Free, $0 (kunlik so'rov bilan uyg'oq tutiladi) | $0 (prompthub.uz allaqachon bor) | **$0/oy** |
 | **Ixcham ishlab chiqarish** (bitta bo'lim, preview'lar < ~700 MB) | Pro, $20 | Free + o'z zaxiramiz | $0 | **$20/oy** |
 | **Ishlab chiqarish** (tavsiya) | Pro, $20 | Pro, $25 (to'xtamaydi, kunlik zaxira) | $0 | **~$45/oy** |
 
@@ -466,7 +466,7 @@ Bu konsepsiyani tayyorlash jarayonida PromptHub'da uchta masala ko'rindi. Ular P
 | Mavzu | Qaror | Rad etilgan muqobil (bir qator) |
 |---|---|---|
 | Joylashuv | Yangi private repo `milliypr-brend`, alohida Vercel loyihasi (region `fra1`), alohida Supabase (eu-central-1) | PromptHub ichida route group: fail-open middleware va umumiy service key |
-| Domen | `pr.promthub.uz` bitta CNAME orqali. Host faqat `APP_URL` env'da. Ko'chirish = CNAME + `/setdomain` + env | Darhol nationalprcenter.uz: ularning IT'siga bog'liq, sekin |
+| Domen | `pr.prompthub.uz` — alohida Vercel loyihasi, `prompthub.uz` Vercel DNS'da. Host faqat `APP_URL` env'da. `prompthub.uz/pr` → 307 redirect `pr.prompthub.uz`ga (qisqa havola). Ko'chirish = domen/DNS + `/setdomain` + `APP_URL` + `npm run setup` | Darhol nationalprcenter.uz: ularning IT'siga bog'liq, sekin. `www.prompthub.uz/pr` ostida proxy + `basePath`: PromptHub bilan bitta origin bo'lib qoladi, `/setdomain` PromptHub hostiga bog'lanadi |
 | Fayl ombori | Asl fayllar faqat bo'lim arxiv kanalida. Bazada metama'lumot va WebP preview | Supabase Storage'da asl fayllar: 4.5 MB / 50 MB / 1 GB cheklovlari |
 | Yuklash | Asosiy yo'l — bot ustasi. Kanalga to'g'ridan-to'g'ri post: reply yoki `#K<kod>`, aks holda "Saralanmagan" | `#tur #loyiha` = ish kaliti (UZ/RU taklifnomalar to'qnashadi); nom o'xshashligiga qarab avtobirlashtirish |
 | Yetkazish | `copyMessage`/`copyMessages`, zaxira yo'l `file_id`. Holatga qarab `protect_content` | Hammasini himoyalash; inline rejim; `t.me/c` havolalari |
@@ -495,8 +495,9 @@ Stek: Next.js 14 App Router, TypeScript, Tailwind, PromptHub'dan ko'chirilgan sh
 
 ## C. Domen, Vercel va repo
 
-- webname.uz: `pr` → CNAME → Vercel ko'rsatgan target (`<hash>.vercel-dns-<n>.com` yoki `cname.vercel-dns.com`). Apex A yozuvi hali yo'qligi subdomenga xalaqit bermaydi. 0-bosqichda webname.uz paneli CNAME qabul qilishini tekshiring.
-- BotFather `/setdomain` aniq hostga: `pr.promthub.uz`. `*.vercel.app` preview'larda login_url ishlamaydi, shu sabab sinov uchun dev-bot va alohida domen yoki lokal QR oqimi ishlatiladi.
+- `prompthub.uz` Vercel DNS'da (`ns1/ns2.vercel-dns.com`): PR Brend loyihasi → Settings → Domains → `pr.prompthub.uz`. DNS yozuvi va sertifikat avtomatik; loyiha boshqa Vercel akkauntida bo'lsa, bir martalik `_vercel` TXT tasdig'i so'raladi. Avvalgi `promthub.uz` (webname.uz) domenining NS'lari so'rovlarni rad etadi, u ishlatilmaydi.
+- `prompthub.uz/pr` va `www.prompthub.uz/pr` — PromptHub loyihasida `/pr/:path*` → `https://pr.prompthub.uz/:path*` vaqtinchalik (307) redirect. Rasmiy manzil — `pr.prompthub.uz`; bot tugmalari, login_url, webhook har doim `APP_URL`dan quriladi.
+- BotFather `/setdomain` aniq hostga: `pr.prompthub.uz`. `*.vercel.app` preview'larda login_url ishlamaydi, shu sabab sinov uchun dev-bot va alohida domen yoki lokal QR oqimi ishlatiladi.
 - Yangi repo o'z `CLAUDE.md`siga ega bo'ladi (R bo'limidagi "qurmang" ro'yxati bilan) va unda **hech qanday maxfiy kalit yozilmaydi**.
 - BotFather'da "Allow groups" yoqiq qoladi (yangi bo'lim guruhlari uchun). Bot ro'yxatga olinmagan chatlardan chiqib ketadi.
 
@@ -511,7 +512,7 @@ Stek: Next.js 14 App Router, TypeScript, Tailwind, PromptHub'dan ko'chirilgan sh
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Faqat serverda |
 | `SESSION_SECRET` | Nonce/cookie HMAC uchun. Yo'q bo'lsa middleware 503 qaytaradi |
 | `CRON_SECRET` | `/api/cron/daily` uchun Bearer |
-| `APP_URL` | `https://pr.promthub.uz` |
+| `APP_URL` | `https://pr.prompthub.uz` |
 | `ADMIN_TG_IDS` | Boshlang'ich adminlar (vergul bilan) |
 
 Arxiv kanali va jamoa guruhi ID'lari env'da emas, `departments` jadvalida saqlanadi.
@@ -591,7 +592,7 @@ Natija: "Navro'z" va "Наврўз" → `navroz`, lekin ruscha "Навруз" �
 
 - **login_url** (`/api/auth/telegram`): barcha maydonlar (`hash`dan tashqari) kalit bo'yicha saralanadi va `key=value` shaklida `\n` bilan birlashtiriladi. `secret_key = SHA256(bot_token)`, `hex(HMAC_SHA256(data_check_string, secret_key))` `hash` bilan timing-safe solishtiriladi, `auth_date` ≤10 daqiqa bo'lishi kerak. Keyin `members`da `status=active` tekshiriladi, sessiya yaratiladi va faqat nisbiy `next`ga redirect qilinadi.
 - **QR** (`/kirish`): server 32 baytli nonce yaratadi, bazaga hash'ini yozadi (3 daqiqa) va brauzerga httpOnly vaqtinchalik cookie beradi. QR: `t.me/<bot>?start=login_<nonce>` (≤64 belgi). Bot faol a'zodan tasdiq so'raydi (brauzer, OS, vaqt bilan). Sahifa har 2 soniyada `/api/auth/qr/poll`ni cookie bilan so'raydi va tasdiqlangach sessiya oladi.
-- **Sessiya:** 32 bayt tasodifiy token `prb_session` cookie'da (httpOnly, Secure, SameSite=Lax, `Domain` atributisiz, ya'ni faqat shu host). Bazada SHA-256 hash saqlanadi. Idle muddat rahbarga 30 kun, boshqalarga 14 kun. Edge middleware cookie borligini va env'larni tekshiradi, kalit yo'q bo'lsa 503 qaytaradi (fail closed). Server `requireMember()` har so'rovda sessiya va `members.status`ni bazadan tekshiradi.
+- **Sessiya:** 32 bayt tasodifiy token `__Host-prb_session` cookie'da (httpOnly, Secure, SameSite=Lax, `Path=/`, `Domain` atributisiz, ya'ni faqat shu host; `__Host-` prefiksi `www.prompthub.uz` kabi qo'shni hostlardan cookie qo'yib yuborishni to'sadi, QR nonce cookie ham shunday). Holatni o'zgartiruvchi so'rovlarda `Origin` `APP_URL` bilan bir xil bo'lishi kerak (`Sec-Fetch-Site: same-site` rad etiladi). Middleware `APP_URL`dan boshqa hostlarni (`*.vercel.app`) kirish sahifalariga qo'ymaydi. Bazada SHA-256 hash saqlanadi. Idle muddat rahbarga 30 kun, boshqalarga 14 kun. Edge middleware cookie borligini va env'larni tekshiradi, kalit yo'q bo'lsa 503 qaytaradi (fail closed). Server `requireMember()` har so'rovda sessiya va `members.status`ni bazadan tekshiradi.
 - **Keyinroq, Mini App:** `secret_key = HMAC_SHA256(key="WebAppData", msg=bot_token)`, `hash`dan boshqa hamma maydon (jumladan `signature`) tekshiriladi, `Authorization: tma <initData>` sarlavhasi ishlatiladi, cookie emas. Mini App ochiladigan barcha route'larda `frame-ancestors https://web.telegram.org` ruxsat etiladi.
 - Sarlavhalar: `X-Robots-Tag: noindex`, `robots.txt` Disallow, `Referrer-Policy: strict-origin-when-cross-origin`.
 
@@ -668,14 +669,14 @@ Plain matn → qidiruv, bundan mustasno: ForceReply javobi, ko'rib chiqish karta
 
 ## Q. RUNBOOK.md (o'zbekcha) mundarijasi
 
-1. Bot tokeni sizib chiqsa: BotFather → Revoke (bot o'zgarmaydi) → Vercel env → redeploy → `npm run setup` → `/holat` → sinov fayli. Maqsad: 15 daqiqa.
+1. Bot tokeni sizib chiqsa: BotFather → Revoke (bot o'zgarmaydi) → Vercel env → redeploy → `ENV_FILE=.env.prod.local npm run setup` → `/holat` → sinov fayli. Maqsad: 15 daqiqa.
 2. Webhook'ni qayta o'rnatish.
 3. A'zo qo'shish va chiqarish, oylik ko'rik.
 4. Zaxiradan tiklash (scratch loyihaga mashq).
 5. Supabase "uxlab qolsa" — Dashboard'dan tiklash.
 6. Bot kanal adminligidan olinsa — huquqlarni qaytarish, o'tkazib yuborilgan postlarni `/import` bilan qo'shish.
 7. Dizayner kanalda postni o'chirib yuborsa.
-8. Domenni ko'chirish: CNAME → `/setdomain` → `APP_URL` → redeploy.
+8. Domenni ko'chirish: domen/DNS → `/setdomain` → `APP_URL` → redeploy → `ENV_FILE=.env.prod.local npm run setup` (webhook). `__Host-` cookie hostga bog'langani uchun hamma qayta kiradi.
 9. Yangi bo'lim qo'shish.
 
 ## R. Yangi repo `CLAUDE.md` uchun "qurmang" ro'yxati
@@ -690,6 +691,7 @@ Plain matn → qidiruv, bundan mustasno: ForceReply javobi, ko'rib chiqish karta
 - Rasmiy hujjat oqimi, e-imzo, mehmonlar ro'yxati; vazifa menejeri, Kanban, dizaynerlar reytingi.
 - AI teglash, ovozni matnga o'girish (ma'lumotlarni himoya qilish ko'rigisiz); analitika dashboardlari.
 - Multi-tenant `org_id`, feature-flag katalogi, sozlanadigan tasdiqlash zanjirlari, per-asset ACL.
+- PromptHub orqali proxy/rewrite yoki `basePath` bilan `/pr` ostida xizmat qilish; `/setdomain`ni `www.prompthub.uz` yoki apex'ga bog'lash (`prompthub.uz/pr` faqat redirect).
 - `CLAUDE.md`ga yoki repoga maxfiy kalit yozish.
 
 ## S. Amalga oshirishda qayta tekshirilishi kerak bo'lgan taxminlar
@@ -710,7 +712,7 @@ Har bir topshiriqni yangi repo'da, shu hujjat repo'ga `docs/CONCEPT.md` sifatida
 Next.js 14 + TS + Tailwind + PromptHub'dan ko'chirilgan shadcn/ui, grammY, sharp, supabase-js (server-only).
 001_init.sql (E bo'limidagi jadvallar, RLS, GRANT'lar, pg_trgm), seed.sql, "Tez orada" landing,
 fail-closed middleware, npm run setup, npm run bot:dev, CLAUDE.md ("qurmang" ro'yxati bilan).
-Qabul: pr.promthub.uz HTTPS'da ochiladi; dev-bot /start'ga javob beradi; sinov kanal posti bazada qator.
+Qabul: pr.prompthub.uz HTTPS'da ochiladi; dev-bot /start'ga javob beradi; sinov kanal posti bazada qator.
 ```
 ```
 [1-bosqich] Ilova F, G, I, K, M, N asosida bot yadrosi: webhook (secret, dedupe, tez 200, waitUntil),

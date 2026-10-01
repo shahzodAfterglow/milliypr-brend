@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check": "tsx scripts/check.ts",
     "setup": "tsx scripts/setup.ts",
-    "bot:dev": "tsx --conditions=react-server --tsconfig tsconfig.json scripts/bot-dev.ts"
+    "bot:dev": "tsx --conditions=react-server --tsconfig tsconfig.json scripts/bot-dev.ts",
+    "probe": "tsx scripts/tg-probe.ts"
   },
   "dependencies": {
     "@grammyjs/auto-retry": "^2.0.2",

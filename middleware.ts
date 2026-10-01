@@ -16,7 +16,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!req.cookies.get("prb_session")?.value) {
+  if (!req.cookies.get("__Host-prb_session")?.value) {
     if (pathname.startsWith("/api/")) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

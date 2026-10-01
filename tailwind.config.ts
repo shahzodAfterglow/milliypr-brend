@@ -2,6 +2,8 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
+  // `.dark` faqat globals.css'da ishlatiladi; safelist'siz build uni kesib tashlaydi.
+  safelist: ["dark"],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -48,6 +50,9 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      backgroundImage: {
+        "brand-gradient": "linear-gradient(135deg, hsl(var(--brand-from)), hsl(var(--brand-to)))",
       },
       borderRadius: {
         lg: "var(--radius)",

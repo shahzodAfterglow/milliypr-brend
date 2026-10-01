@@ -109,6 +109,16 @@ async function findDepartmentByArchive(chatId: number): Promise<Department | nul
   return data as Department | null;
 }
 
+async function isBoundChat(chatId: number): Promise<boolean> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("departments")
+    .select("id")
+    .or(`archive_chat_id.eq.${chatId},team_chat_id.eq.${chatId}`)
+    .limit(1);
+  if (error) throw new Error(`departments select: ${error.message}`);
+  return (data?.length ?? 0) > 0;
+}
+
 async function adminChatIds(): Promise<number[]> {
   const { data } = await getSupabaseAdmin()
     .from("members")
@@ -314,14 +324,28 @@ export function createBot(options?: {
   });
 
   // Bot chatga qo'shilganda yoki huquqi o'zgarganda.
+  // Ro'yxatga olinmagan chatga botni faqat admin qo'sha oladi; boshqa holatda bot darhol chiqib
+  // ketadi (begona kanal adashib arxiv sifatida biriktirilmasligi uchun).
   bot.on("my_chat_member", async (ctx) => {
     const upd = ctx.myChatMember;
     const chat = upd.chat;
     if (chat.type === "private") return;
     const title = chat.title;
     const status = upd.new_chat_member.status;
+    const wasIn = !["left", "kicked"].includes(upd.old_chat_member.status);
+    const isIn = !["left", "kicked"].includes(status);
+    const known = await isBoundChat(chat.id);
+    const by = `${displayName(upd.from)}${upd.from.username ? ` (@${upd.from.username})` : ""}`;
+    let action = "my_chat_member";
 
-    if (status === "administrator") {
+    if (isIn && !known && !(await isAdmin(upd.from.id))) {
+      action = "chat_rejected";
+      try {
+        await ctx.api.leaveChat(chat.id);
+      } catch (e) {
+        console.warn("leaveChat failed", chat.id, (e as Error).message);
+      }
+    } else if (status === "administrator" && !known) {
       const depts = await listDepartments();
       const kb = new InlineKeyboard();
       for (const d of depts) {
@@ -331,25 +355,53 @@ export function createBot(options?: {
       kb.text("🚪 Chiqib ketish", `ch:${chat.id}:0:x`);
       await notifyAdmins(
         bot,
-        `Bot "${title}" (${chat.type}, ${chat.id}) chatiga admin qilindi. Qaysi bo'limga biriktiramiz?`,
+        `${by} botni "${title}" (${chat.type}, ${chat.id}) chatiga admin qildi. Qaysi bo'limga biriktiramiz?`,
         kb,
       );
-    } else if (status === "left" || status === "kicked" || status === "member" || status === "restricted") {
-      const known = await getSupabaseAdmin()
-        .from("departments")
-        .select("id")
-        .or(`archive_chat_id.eq.${chat.id},team_chat_id.eq.${chat.id}`);
-      if (known.data?.length) {
-        await notifyAdmins(bot, `⚠️ Bot "${title}" chatida adminlikdan mahrum qilindi yoki chiqarildi (holat: ${status}). Arxivga yozish to'xtaydi.`);
-      }
+    } else if (isIn && !wasIn && !known) {
+      // Guruhga oddiy a'zo sifatida qo'shildi: biriktirish uchun admin huquqi kerak.
+      await notifyAdmins(
+        bot,
+        `${by} botni "${title}" (${chat.type}, ${chat.id}) chatiga qo'shdi. Biriktirish uchun botni shu chatda admin qiling.`,
+      );
+    } else if (known && status !== "administrator") {
+      await notifyAdmins(
+        bot,
+        `⚠️ Bot "${title}" chatida adminlikdan mahrum qilindi yoki chiqarildi (holat: ${status}). Bu chat bilan ishlash to'xtaydi.`,
+      );
+    } else if (known && status === "administrator" && upd.old_chat_member.status !== "administrator") {
+      await notifyAdmins(bot, `✅ Bot "${title}" chatida yana admin. Biriktirish o'zgarmagan.`);
     }
     await audit({
-      action: "my_chat_member",
+      action,
       surface: "bot",
       actorTgId: upd.from.id,
       targetType: "chat",
       targetId: chat.id,
-      meta: { status, chat_type: chat.type },
+      meta: { status, old_status: upd.old_chat_member.status, chat_type: chat.type, known },
+    });
+  });
+
+  // Oddiy guruh supergroup'ga aylanganda chat ID o'zgaradi: biriktirishni yangi ID'ga ko'chiramiz.
+  bot.on("message:migrate_to_chat_id", async (ctx) => {
+    const oldId = ctx.chat.id;
+    const newId = ctx.message.migrate_to_chat_id;
+    const { data, error } = await getSupabaseAdmin()
+      .from("departments")
+      .update({ team_chat_id: newId })
+      .eq("team_chat_id", oldId)
+      .select("id");
+    if (error) {
+      console.error("team chat migrate failed", error.message);
+      return;
+    }
+    if (!data?.length) return;
+    await audit({
+      action: "chat_migrated",
+      surface: "bot",
+      targetType: "chat",
+      targetId: newId,
+      meta: { from: oldId, departments: data.map((d) => d.id) },
     });
   });
 
