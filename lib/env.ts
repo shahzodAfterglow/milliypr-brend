@@ -19,7 +19,7 @@ export const env = {
     return required("TELEGRAM_WEBHOOK_SECRET");
   },
   get supabaseUrl() {
-    return required("SUPABASE_URL");
+    return normalizeSupabaseUrl(required("SUPABASE_URL"));
   },
   get supabaseServiceRoleKey() {
     return required("SUPABASE_SERVICE_ROLE_KEY");
@@ -35,6 +35,25 @@ export const env = {
     return parseIdList(process.env.ADMIN_TG_IDS);
   },
 };
+
+// Panelga ko'chirishda tez-tez uchraydigan xatolar: oxiridagi "/" yoki "/rest/v1", sxemasiz host.
+export function normalizeSupabaseUrl(raw: string): string {
+  let url = raw.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+  if (/^[a-z]{20}$/.test(url)) url = `${url}.supabase.co`; // faqat loyiha ID'si (ref)
+  if (/^[a-z0-9-]+\.supabase\.co$/i.test(url)) url = `https://${url}`;
+  return url;
+}
+
+// SUPABASE_URL shakli, qiymatni oshkor qilmasdan (connection string'da parol bo'lishi mumkin).
+export function describeSupabaseUrl(raw: string | undefined): string {
+  const v = raw?.trim() ?? "";
+  if (!v) return "yo'q";
+  if (/^postgres(ql)?:\/\//i.test(v)) return "postgres connection string kiritilgan (parol bor!) — Project URL kerak";
+  const url = normalizeSupabaseUrl(v);
+  if (/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url)) return "ok";
+  if (/^https?:\/\//i.test(url)) return "http(s) URL, lekin *.supabase.co emas";
+  return `URL emas (${v.length} belgi, "https://" bilan boshlanmaydi)`;
+}
 
 export function parseIdList(raw: string | undefined): number[] {
   return (raw ?? "")
