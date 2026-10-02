@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import type { Api } from "grammy";
 import { ALLOWED_UPDATES } from "@/lib/telegram/bot";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { describeSupabaseUrl, normalizeSupabaseUrl } from "@/lib/env";
 
 // Botni sozlash (webhook, buyruqlar, tavsiflar) va tizim holati. `npm run setup` (lokal) va
 // `/api/telegram/setup` (server, kalitlar Vercel'dan chiqmaydi) shu kodni ishlatadi.
@@ -124,7 +125,7 @@ export async function systemStatus(api: Api | null) {
       .select("slug, archive_chat_id, team_chat_id, is_active")
       .order("id");
     db = {
-      host: new URL(process.env.SUPABASE_URL ?? "").host,
+      host: new URL(normalizeSupabaseUrl(process.env.SUPABASE_URL ?? "")).host,
       tables: Object.fromEntries(counts),
       departments: error ? `xato: ${error.message}` : departments,
     };
@@ -132,5 +133,9 @@ export async function systemStatus(api: Api | null) {
     db = { error: errorText(e) };
   }
 
-  return { env, bot, db };
+  const deployment = {
+    id: process.env.VERCEL_DEPLOYMENT_ID ?? null,
+    commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? null,
+  };
+  return { deployment, env, supabase_url: describeSupabaseUrl(process.env.SUPABASE_URL), bot, db };
 }
